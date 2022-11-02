@@ -45,21 +45,21 @@
 				<div class="login-body">
 					<!-- BEGIN login-content -->
 					<div class="login-content fs-13px">
-						<form action="index.html" method="GET">
+						<form action="login" method="POST">
 							<div class="form-floating mb-20px">
-								<input type="email" class="form-control fs-13px h-45px" id="emailAddress" placeholder="Email Address" />
-								<label for="emailAddress" class="d-flex align-items-center py-0">Email Adresi</label>
+								<input name="username" type="text" class="form-control fs-13px h-45px" id="emailAddress" placeholder="User name" />
+								<label for="emailAddress" class="d-flex align-items-center py-0">Kullanıcı Adı</label>
 							</div>
 							<div class="form-floating mb-20px">
-								<input type="password" class="form-control fs-13px h-45px" id="password" placeholder="Password" />
+								<input name="password" type="password" class="form-control fs-13px h-45px" id="password" placeholder="Password" />
 								<label for="password" class="d-flex align-items-center py-0">Şifre</label>
 							</div>
-							<div class="form-check mb-20px">
+							<!-- <div class="form-check mb-20px">
 								<input class="form-check-input" type="checkbox" value="" id="rememberMe" />
 								<label class="form-check-label" for="rememberMe">
 									Beni hatırla
 								</label>
-							</div>
+							</div> -->
 							<div class="login-buttons">
 								<button type="submit" class="btn h-45px btn-success d-block w-100 btn-lg">Giriş Yap</button>
 							</div>

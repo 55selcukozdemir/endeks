@@ -27,19 +27,19 @@
 				<div class="menu-item pt-5px">
 					<a href="javascript:;" class="menu-link">
 						<div class="menu-icon"><i class="fa fa-cog"></i></div>
-						<div class="menu-text">Settings</div>
+						<div class="menu-text">Ayarlar</div>
 					</a>
 				</div>
 				<div class="menu-item">
 					<a href="javascript:;" class="menu-link">
 						<div class="menu-icon"><i class="fa fa-pencil-alt"></i></div>
-						<div class="menu-text"> Send Feedback</div>
+						<div class="menu-text"> Bana Mail Gönder</div>
 					</a>
 				</div>
 				<div class="menu-item pb-5px">
-					<a href="javascript:;" class="menu-link">
-						<div class="menu-icon"><i class="fa fa-question-circle"></i></div>
-						<div class="menu-text"> Helps</div>
+					<a href="logout" class="menu-link">
+						<div class="menu-icon"><i class="fa fa-right-from-bracket"></i></div>
+						<div class="menu-text"> Çıkış Yap</div>
 					</a>
 				</div>
 				<div class="menu-divider m-0"></div>

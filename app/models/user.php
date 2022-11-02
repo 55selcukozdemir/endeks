@@ -24,7 +24,7 @@ Class User
  				$_SESSION['user_name'] = $data[0]["username"];
 				$_SESSION['user_url'] = $data[0]["username"];
 
-				header("Location:". ROOT . "home");
+				header("Location:". ROOT );
 				die;
 
 			}else{
