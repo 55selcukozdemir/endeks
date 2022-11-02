@@ -76,76 +76,39 @@
 							</div>
 						</div>
 						<div class="row mb-15px">
-							<label class="form-label col-form-label col-md-3">Satılık Konut Max</label>
+							<label class="form-label col-form-label col-md-3">Satılık Konut</label>
 							<div class="col-md-3">
-								<input type="number" name="satilik_konut_max" class="form-control mb-5px" placeholder="Satılık Konut Max" />
+								<input type="number" name="satilik_konut_min" class="form-control mb-5px" placeholder="Satılık Konut" />
 							</div>
 						</div>
 						<div class="row mb-15px">
-							<label class="form-label col-form-label col-md-3">Satılık Konut Min</label>
+							<label class="form-label col-form-label col-md-3">Kiralık Konut</label>
 							<div class="col-md-3">
-								<input type="number" name="satilik_konut_min" class="form-control mb-5px" placeholder="Satılık Konut Min" />
+								<input type="number" name="kiralik_konut_min" class="form-control mb-5px" placeholder="Kiralık Konut" />
 							</div>
 						</div>
 						<div class="row mb-15px">
-							<label class="form-label col-form-label col-md-3">Kiralık Konut Max</label>
+							<label class="form-label col-form-label col-md-3">Satılık Ticari</label>
 							<div class="col-md-3">
-								<input type="number" name="kiralik_konut_max" class="form-control mb-5px" placeholder="Kiralık Konut Max" />
+								<input type="number" name="satilik_ticari_min" class="form-control mb-5px" placeholder="Satılık Ticari" />
 							</div>
 						</div>
 						<div class="row mb-15px">
-							<label class="form-label col-form-label col-md-3">Kiralık Konut Min</label>
+							<label class="form-label col-form-label col-md-3">Kiralık Ticari</label>
 							<div class="col-md-3">
-								<input type="number" name="kiralik_konut_min" class="form-control mb-5px" placeholder="Kiralık Konut Min" />
+								<input type="number" name="kiralik_ticari_min" class="form-control mb-5px" placeholder="Kiralık Ticari" />
 							</div>
 						</div>
 						<div class="row mb-15px">
-							<label class="form-label col-form-label col-md-3">Satılık Ticari Max</label>
+							<label class="form-label col-form-label col-md-3">Satılık Arsa</label>
 							<div class="col-md-3">
-								<input type="number" name="satilik_ticari_max" class="form-control mb-5px" placeholder="Satılık Ticari Max" />
+								<input type="number" name="satilik_arsa_min" class="form-control mb-5px" placeholder="Satılık Arsa" />
 							</div>
 						</div>
 						<div class="row mb-15px">
-							<label class="form-label col-form-label col-md-3">Satılık Ticari Min</label>
+							<label class="form-label col-form-label col-md-3">Satılık Arazi</label>
 							<div class="col-md-3">
-								<input type="number" name="satilik_ticari_min" class="form-control mb-5px" placeholder="Satılık Ticari Min" />
-							</div>
-						</div>
-
-						<div class="row mb-15px">
-							<label class="form-label col-form-label col-md-3">Kiralık Ticari Max</label>
-							<div class="col-md-3">
-								<input type="number" name="kiralik_ticari_max" class="form-control mb-5px" placeholder="Kiralık Ticari Max" />
-							</div>
-						</div>
-						<div class="row mb-15px">
-							<label class="form-label col-form-label col-md-3">Kiralık Ticari Min</label>
-							<div class="col-md-3">
-								<input type="number" name="kiralik_ticari_min" class="form-control mb-5px" placeholder="Kiralık Ticari Min" />
-							</div>
-						</div>
-						<div class="row mb-15px">
-							<label class="form-label col-form-label col-md-3">Satılık Arsa Max</label>
-							<div class="col-md-3">
-								<input type="number" name="satilik_arsa_max" class="form-control mb-5px" placeholder="Satılık Arsa Max" />
-							</div>
-						</div>
-						<div class="row mb-15px">
-							<label class="form-label col-form-label col-md-3">Satılık Arsa Min</label>
-							<div class="col-md-3">
-								<input type="number" name="satilik_arsa_min" class="form-control mb-5px" placeholder="Satılık Arsa Min" />
-							</div>
-						</div>
-						<div class="row mb-15px">
-							<label class="form-label col-form-label col-md-3">Satılık Arazi Max</label>
-							<div class="col-md-3">
-								<input type="number" name="satilik_arazi_max" class="form-control mb-5px" placeholder="Satılık Arazi Max" />
-							</div>
-						</div>
-						<div class="row mb-15px">
-							<label class="form-label col-form-label col-md-3">Satılık Arazi Min</label>
-							<div class="col-md-3">
-								<input type="number" name="satilik_arazi_min" class="form-control mb-5px" placeholder="Satılık Arazi Min" />
+								<input type="number" name="satilik_arazi_min" class="form-control mb-5px" placeholder="Satılık Arazi" />
 							</div>
 						</div>
 						<div class="row mb-15px">

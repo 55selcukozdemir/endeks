@@ -51,10 +51,10 @@
                                     <th class="text-nowrap">Ticari Satışı Max</th>
                                     <th class="text-nowrap">Ticari Kira Min</th>
                                     <th class="text-nowrap">Ticari Kira Max</th>
-                                    <th class="text-nowrap">Arazi Satışı Min</th>
-                                    <th class="text-nowrap">Arazi Satışı Max</th>
-                                    <th class="text-nowrap">Arazi Kira Min</th>
-                                    <th class="text-nowrap">Arazi Kira Max</th>
+                                    <th class="text-nowrap">Arsa Satışı Min</th>
+                                    <th class="text-nowrap">Arsa Satışı Max</th>
+                                    <th class="text-nowrap">Arazi Satış Min</th>
+                                    <th class="text-nowrap">Arazi Satış Max</th>
                                 </tr>
                             </thead>
                             <tbody>
