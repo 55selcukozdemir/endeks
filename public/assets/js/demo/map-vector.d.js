@@ -9,6 +9,7 @@ var handleVectorMap = function() {
 	if (('#world-map').length !== 0) {
 		var wHeight = $(window).height();
 		$('#world-map').css('height', wHeight);
+		
 
 		$(window).resize(function() {
 			var wHeight = $(window).height();
@@ -46,7 +47,7 @@ var handleVectorMap = function() {
 			
 			backgroundColor: app.color.gray900,
 			markers: [
-				{latLng: [10, 10], name: 'Vatican City'},
+				{latLng: [40, 30], name: 'bursa'},
 				{latLng: [43.73, 7.41], name: 'Monaco'},
 				{latLng: [-0.52, 166.93], name: 'Nauru'},
 				{latLng: [-8.51, 179.21], name: 'Tuvalu'},
@@ -74,6 +75,7 @@ var handleVectorMap = function() {
 				{latLng: [0.33, 6.73], name: 'São Tomé and Príncipe'}
 			]
 		});
+
 	}
 };
 
@@ -83,9 +85,11 @@ var MapVector = function () {
 		//main function
 		init: function () {
 			handleVectorMap();
+			
 		}
 	};
 }();
+
 
 $(document).ready(function() {
 	MapVector.init();
