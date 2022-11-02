@@ -6,8 +6,8 @@ define('WEBSITE_TITLE', "My Website");
 
 /*set database variables*/
 
-define('DB_TYPE','endeks');
-define('DB_NAME','test');
+define('DB_TYPE','mysql');
+define('DB_NAME','endeks');
 define('DB_USER','root');
 define('DB_PASS','');
 define('DB_HOST','localhost');
