@@ -14,8 +14,7 @@ Class App
 		$url = $this->splitURL();
 
 
- 		// if(file_exists("../app/controllers/". strtolower($url[0]) .".php") && isset($_SESSION["user_name"]))
- 		if(true)
+ 		if(file_exists("../app/controllers/". strtolower($url[0]) .".php") && isset($_SESSION["user_name"]))
  		{
  			$this->controller = strtolower($url[0]);
  			unset($url[0]);

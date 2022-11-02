@@ -6,7 +6,7 @@ Class Login extends Controller
 	{
  	 	
  	 	$data['page_title'] = "Login";
-		
+
  	 	if(isset($_POST['email']))
  	 	{
  	 		$user = $this->loadModel("user");
