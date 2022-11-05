@@ -40,82 +40,73 @@
 					</div>
 				</div>
 				<div class="panel-body">
-					<form action="">
+					<form action="manage/setendeks" method="POST">
 						<div class="row mb-15px">
 							<label class="form-label col-form-label col-md-3">İl seç</label>
 							<div class="col-md-9">
-								<select class="form-select">
-									<option>Samsun</option>
-									<option>İstanbul</option>
-									<option>Ankara</option>
-									<option>İzmir</option>
-									<option>Antalya</option>
+								<select class="form-select" id="il" name="il_id" onchange="getilce()">
+									<option value="0">Tümü</option>
+								<?php foreach($data["iller"] as $il): ?>
+									<option value="<?=$il["id"]?>"><?=$il["il_adi"]?></option>
+								<?php endforeach ?>
 								</select>
 							</div>
 						</div>
-						<div class="row mb-15px">
+						<div id="ilce_div" class="row mb-15px" style="display: none;">
 							<label class="form-label col-form-label col-md-3">İlçe seç</label>
 							<div class="col-md-9">
-								<select class="form-select">
-									<option>Çarşamba</option>
-									<option>Bafra</option>
-									<option>Ayvacık</option>
-									<option>Vezirköprü</option>
-									<option>Salpazarı</option>
+								<select id="ilce" class="form-select" name="ilce_id" onchange="getMahalle()" >
+									<option value="0">Tümü</option>
 								</select>
 							</div>
 						</div>
-						<div class="row mb-15px">
+						<div id="mahalle_div" class="row mb-15px" style="display: none;">
 							<label class="form-label col-form-label col-md-3">Mahalle seç</label>
 							<div class="col-md-9">
-								<select class="form-select">
-									<option>Ağcagüney</option>
-									<option>Karakaya</option>
-									<option>Şenyurt</option>
+								<select id="mahalle" name="mahalle_id" class="form-select">
+									<option value="0">Tümü</option>
 								</select>
 							</div>
 						</div>
 						<div class="row mb-15px">
 							<label class="form-label col-form-label col-md-3">Satılık Konut</label>
 							<div class="col-md-3">
-								<input type="number" name="satilik_konut_min" class="form-control mb-5px" placeholder="Satılık Konut" />
+								<input type="number" name="satilik_konut" class="form-control mb-5px" placeholder="Satılık Konut" />
 							</div>
 						</div>
 						<div class="row mb-15px">
 							<label class="form-label col-form-label col-md-3">Kiralık Konut</label>
 							<div class="col-md-3">
-								<input type="number" name="kiralik_konut_min" class="form-control mb-5px" placeholder="Kiralık Konut" />
+								<input type="number" name="kiralik_konut" class="form-control mb-5px" placeholder="Kiralık Konut" />
 							</div>
 						</div>
 						<div class="row mb-15px">
 							<label class="form-label col-form-label col-md-3">Satılık Ticari</label>
 							<div class="col-md-3">
-								<input type="number" name="satilik_ticari_min" class="form-control mb-5px" placeholder="Satılık Ticari" />
+								<input type="number" name="satilik_ticari" class="form-control mb-5px" placeholder="Satılık Ticari" />
 							</div>
 						</div>
 						<div class="row mb-15px">
 							<label class="form-label col-form-label col-md-3">Kiralık Ticari</label>
 							<div class="col-md-3">
-								<input type="number" name="kiralik_ticari_min" class="form-control mb-5px" placeholder="Kiralık Ticari" />
+								<input type="number" name="kiralik_ticari" class="form-control mb-5px" placeholder="Kiralık Ticari" />
 							</div>
 						</div>
 						<div class="row mb-15px">
 							<label class="form-label col-form-label col-md-3">Satılık Arsa</label>
 							<div class="col-md-3">
-								<input type="number" name="satilik_arsa_min" class="form-control mb-5px" placeholder="Satılık Arsa" />
+								<input type="number" name="satilik_arsa" class="form-control mb-5px" placeholder="Satılık Arsa" />
 							</div>
 						</div>
 						<div class="row mb-15px">
 							<label class="form-label col-form-label col-md-3">Satılık Arazi</label>
 							<div class="col-md-3">
-								<input type="number" name="satilik_arazi_min" class="form-control mb-5px" placeholder="Satılık Arazi" />
+								<input type="number" name="satilik_arazi" class="form-control mb-5px" placeholder="Satılık Arazi" />
 							</div>
 						</div>
 						<div class="row mb-15px">
 							<div class="col-md-3">
-								<button class="btn btn-primary" type="button">
-									Kaydet	
-								</button>
+								<input type="submit" class="form-control mb-5px"  />
 							</div>
 						</div>
 					</form>
@@ -126,6 +117,69 @@
 		</div>
 		<!-- END #content -->
 
+    <!-- BEGIN #content -->
+	<div id="content" class="app-content">
+
+<!-- BEGIN panel -->
+<div class="panel panel-inverse">
+	<!-- BEGIN panel-heading -->
+	<div class="panel-heading">
+		<h4 class="panel-title">Data Table - Default</h4>
+		<div class="panel-heading-btn">
+			<a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"><i class="fa fa-expand"></i></a>
+			<a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"><i class="fa fa-redo"></i></a>
+			<a href="javascript:;" class="btn btn-xs btn-icon btn-warning" data-toggle="panel-collapse"><i class="fa fa-minus"></i></a>
+			<a href="javascript:;" class="btn btn-xs btn-icon btn-danger" data-toggle="panel-remove"><i class="fa fa-times"></i></a>
+		</div>
+	</div>
+	<!-- END panel-heading -->
+
+	
+	<!-- BEGIN panel-body -->
+	<div class="panel-body">
+		<table id="data-table-default" class="table table-striped table-bordered align-middle">
+			<thead>
+				<tr>
+					<th class="text-nowrap">İl</th>
+					<th class="text-nowrap">Konut Satışı Min</th>
+					<th class="text-nowrap">Konut Satışı Max</th>
+					<th class="text-nowrap">Konut Kira Min</th>
+					<th class="text-nowrap">Konut Kira Max</th>
+					<th class="text-nowrap">Ticari Satışı Min</th>
+					<th class="text-nowrap">Ticari Satışı Max</th>
+					<th class="text-nowrap">Ticari Kira Min</th>
+					<th class="text-nowrap">Ticari Kira Max</th>
+					<th class="text-nowrap">Arsa Satışı Min</th>
+					<th class="text-nowrap">Arsa Satışı Max</th>
+					<th class="text-nowrap">Arazi Satış Min</th>
+					<th class="text-nowrap">Arazi Satış Max</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="odd gradeX">
+					<td>Samsun</td>
+					<td><input type="text" class="form-control my-n1" /></td>
+					<td><input type="text" class="form-control my-n1" /></td>
+					<td><input type="text" class="form-control my-n1" /></td>
+					<td><input type="text" class="form-control my-n1" /></td>
+					<td><input type="text" class="form-control my-n1" /></td>
+					<td><input type="text" class="form-control my-n1" /></td>
+					<td><input type="text" class="form-control my-n1" /></td>
+					<td><input type="text" class="form-control my-n1" /></td>
+					<td><input type="text" class="form-control my-n1" /></td>
+					<td><input type="text" class="form-control my-n1" /></td>
+					<td><input type="text" class="form-control my-n1" /></td>
+					<td><input type="text" class="form-control my-n1" /></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!-- END panel-body -->
+</div>
+<!-- END panel -->
+</div>
+<!-- END #content -->
+
         <!-- BEGIN scroll to top btn -->
         <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top" data-toggle="scroll-to-top"><i class="fa fa-angle-up"></i></a>
         <!-- END scroll to top btn -->
@@ -135,6 +189,10 @@
 
 
     <?php include "general/footer.php" ?>
+
+	<!-- ================== BEGIN page-js ================== -->
+	<script src="<?=ASSETS?>js/demo/manage.js"></script>
+	<!-- ================== END page-js ================== -->
 
 
 </body>
