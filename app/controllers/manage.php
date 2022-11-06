@@ -8,9 +8,10 @@ class Manage extends Controller {
 
     function index()
 	{
-		
 		$data ['iller'] =  $this->endeks->getIl();
-		if(!isset($_POST['il_id'])){
+		
+		if(isset($_POST['il_id'])){
+			
 			$data['form'] = $this->endeks->getForm();
 		}
 		$this->view("manage", $data);
@@ -44,7 +45,10 @@ class Manage extends Controller {
 	}
 
 	function setendeks (){
-		$this->endeks->insertEndeks($_POST);
+		print_r($_POST);
+
+		
+		// $this->endeks->insertEndeks($_POST); 
 		echo "eklendi";
 	}
 }

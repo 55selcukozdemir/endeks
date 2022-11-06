@@ -31,7 +31,7 @@
 			<!-- harita verilerinin girileceği form paneli -->
 			<div class="panel panel-inverse">
 				<div class="panel-heading">
-					<h4 class="panel-title">Harita veri girişi</h4>
+					<h4 class="panel-title">Tablo Endeks Getir</h4>
 					<div class="panel-heading-btn">
 						<a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"><i class="fa fa-expand"></i></a>
 						<a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"><i class="fa fa-redo"></i></a>
@@ -40,73 +40,45 @@
 					</div>
 				</div>
 				<div class="panel-body">
-					<form action="manage/setendeks" method="POST">
-						<div class="row mb-15px">
-							<label class="form-label col-form-label col-md-3">İl seç</label>
+					<form action="manage" method="POST">
+
+						<div class="row">
+							<div class="col-md-3">
+								<div class="row mb-15px">
+									<label class="form-label col-form-label col-md-3">İl seç</label>
+									<div class="col-md-9">
+										<select class="form-select" id="il" name="il_id" onchange="getilce()">
+											<option value="0">Tümü</option>
+										<?php foreach($data["iller"] as $il): ?>
+											<option value="<?=$il["id"]?>"><?=$il["il_adi"]?></option>
+										<?php endforeach ?>
+										</select>
+									</div>
+								</div>
+								<div id="ilce_div" class="row mb-15px" style="display: none;">
+									<label class="form-label col-form-label col-md-3">İlçe seç</label>
+									<div class="col-md-9">
+										<select id="ilce" class="form-select" name="ilce_id" onchange="getMahalle()" >
+											<option value="0">Tümü</option>
+										</select>
+									</div>
+								</div>
+								<div id="mahalle_div" class="row mb-15px" style="display: none;">
+									<label class="form-label col-form-label col-md-3">Mahalle seç</label>
+									<div class="col-md-9">
+										<select id="mahalle" name="mahalle_id" class="form-select">
+											<option value="0">Tümü</option>
+										</select>
+									</div>
+								</div>
+							</div>
+
 							<div class="col-md-9">
-								<select class="form-select" id="il" name="il_id" onchange="getilce()">
-									<option value="0">Tümü</option>
-								<?php foreach($data["iller"] as $il): ?>
-									<option value="<?=$il["id"]?>"><?=$il["il_adi"]?></option>
-								<?php endforeach ?>
-								</select>
-							</div>
-						</div>
-						<div id="ilce_div" class="row mb-15px" style="display: none;">
-							<label class="form-label col-form-label col-md-3">İlçe seç</label>
-							<div class="col-md-9">
-								<select id="ilce" class="form-select" name="ilce_id" onchange="getMahalle()" >
-									<option value="0">Tümü</option>
-								</select>
-							</div>
-						</div>
-						<div id="mahalle_div" class="row mb-15px" style="display: none;">
-							<label class="form-label col-form-label col-md-3">Mahalle seç</label>
-							<div class="col-md-9">
-								<select id="mahalle" name="mahalle_id" class="form-select">
-									<option value="0">Tümü</option>
-								</select>
-							</div>
-						</div>
-						<div class="row mb-15px">
-							<label class="form-label col-form-label col-md-3">Satılık Konut</label>
-							<div class="col-md-3">
-								<input type="number" name="satilik_konut" class="form-control mb-5px" placeholder="Satılık Konut" />
-							</div>
-						</div>
-						<div class="row mb-15px">
-							<label class="form-label col-form-label col-md-3">Kiralık Konut</label>
-							<div class="col-md-3">
-								<input type="number" name="kiralik_konut" class="form-control mb-5px" placeholder="Kiralık Konut" />
-							</div>
-						</div>
-						<div class="row mb-15px">
-							<label class="form-label col-form-label col-md-3">Satılık Ticari</label>
-							<div class="col-md-3">
-								<input type="number" name="satilik_ticari" class="form-control mb-5px" placeholder="Satılık Ticari" />
-							</div>
-						</div>
-						<div class="row mb-15px">
-							<label class="form-label col-form-label col-md-3">Kiralık Ticari</label>
-							<div class="col-md-3">
-								<input type="number" name="kiralik_ticari" class="form-control mb-5px" placeholder="Kiralık Ticari" />
-							</div>
-						</div>
-						<div class="row mb-15px">
-							<label class="form-label col-form-label col-md-3">Satılık Arsa</label>
-							<div class="col-md-3">
-								<input type="number" name="satilik_arsa" class="form-control mb-5px" placeholder="Satılık Arsa" />
-							</div>
-						</div>
-						<div class="row mb-15px">
-							<label class="form-label col-form-label col-md-3">Satılık Arazi</label>
-							<div class="col-md-3">
-								<input type="number" name="satilik_arazi" class="form-control mb-5px" placeholder="Satılık Arazi" />
-							</div>
-						</div>
-						<div class="row mb-15px">
-							<div class="col-md-3">
-								<input type="submit" class="form-control mb-5px"  />
+								<div class="row mb-15px">
+									<div class="col-md-3">
+										<input type="submit" value="getir" class="form-control mb-5px btn btn-outline-primary"  />
+									</div>
+								</div>
 							</div>
 						</div>
 					</form>
@@ -124,7 +96,26 @@
 <div class="panel panel-inverse">
 	<!-- BEGIN panel-heading -->
 	<div class="panel-heading">
-		<h4 class="panel-title">Data Table - Default</h4>
+		<h4 class="panel-title">
+			<?php 
+			if(isset($data["form"])){
+				
+				if(isset($data["form"][0]["mahalle_adi"])){
+					
+					echo $data["form"][0]["il_adi"] . " / " . $data["form"][0]["ilce_adi"] . " / " . $data["form"][0]["mahalle_adi"];
+
+				} else if(isset($data["form"][0]["ilce_adi"])) {
+					echo $data["form"][0]["il_adi"] . " / " . $data["form"][0]["ilce_adi"];
+	
+				} else if (isset($data["form"][0]["il_adi"])){
+					echo "Tüm iller";
+
+				}
+
+			}
+			
+			?>
+		</h4>
 		<div class="panel-heading-btn">
 			<a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"><i class="fa fa-expand"></i></a>
 			<a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"><i class="fa fa-redo"></i></a>
@@ -136,45 +127,60 @@
 
 	
 	<!-- BEGIN panel-body -->
+	<form action="manage/setendeks" method="POST" id="endeks_form">
 	<div class="panel-body">
 		<table id="data-table-default" class="table table-striped table-bordered align-middle">
 			<thead>
 				<tr>
-					<th class="text-nowrap">İl</th>
-					<th class="text-nowrap">Konut Satışı Min</th>
-					<th class="text-nowrap">Konut Satışı Max</th>
-					<th class="text-nowrap">Konut Kira Min</th>
-					<th class="text-nowrap">Konut Kira Max</th>
-					<th class="text-nowrap">Ticari Satışı Min</th>
-					<th class="text-nowrap">Ticari Satışı Max</th>
-					<th class="text-nowrap">Ticari Kira Min</th>
-					<th class="text-nowrap">Ticari Kira Max</th>
-					<th class="text-nowrap">Arsa Satışı Min</th>
-					<th class="text-nowrap">Arsa Satışı Max</th>
-					<th class="text-nowrap">Arazi Satış Min</th>
-					<th class="text-nowrap">Arazi Satış Max</th>
+					<th class="text-nowrap">Konum</th>
+					<th class="text-nowrap">Konut Satışı</th>
+					<th class="text-nowrap">Konut Kira</th>
+					<th class="text-nowrap">Ticari Satışı</th>
+					<th class="text-nowrap">Ticari Kira</th>
+					<th class="text-nowrap">Arsa Satışı</th>
+					<th class="text-nowrap">Arazi Satış</th>
 				</tr>
 			</thead>
 			<tbody>
+
+			
+
+				<?php 
+				if(isset($data['form'])){
+				foreach( $data['form'] as $form):?>
+
+				<!-- kapalı input'larla id değerlerini döndürmeye çalışacağız -->
+				<input name="il_id[]" value="<?= isset($form["il_id"]) ? $form["il_id"] : 0?>" form="endeks_form" type="text" style="display: none;">
+				<input name="ilce_id[]" value="<?= isset($form["ilce_id"]) ? $form["ilce_id"] : 0?>" form="endeks_form" type="text" style="display: none;">
+				<input name="mahalle_id[]" value="<?= isset($form["mahalle_id"]) ? $form["mahalle_id"] : 0?>" form="endeks_form" type="text" style="display: none;">
 				<tr class="odd gradeX">
-					<td>Samsun</td>
-					<td><input type="text" class="form-control my-n1" /></td>
-					<td><input type="text" class="form-control my-n1" /></td>
-					<td><input type="text" class="form-control my-n1" /></td>
-					<td><input type="text" class="form-control my-n1" /></td>
-					<td><input type="text" class="form-control my-n1" /></td>
-					<td><input type="text" class="form-control my-n1" /></td>
-					<td><input type="text" class="form-control my-n1" /></td>
-					<td><input type="text" class="form-control my-n1" /></td>
-					<td><input type="text" class="form-control my-n1" /></td>
-					<td><input type="text" class="form-control my-n1" /></td>
-					<td><input type="text" class="form-control my-n1" /></td>
-					<td><input type="text" class="form-control my-n1" /></td>
+					
+					<td><?= $form['adi'] ?></td>
+					<td><input name="konut_satis[]" value="<?= $form["satilik_konut"]?>" form="endeks_form" type="number" class="form-control my-n1" /></td>
+					<td><input name="konut_kira[]" value="<?= $form["kiralik_konut"]?>" form="endeks_form" type="number" class="form-control my-n1" /></td>
+					<td><input name="ticari_satis[]" value="<?= $form["satilik_ticari"]?>" form="endeks_form" type="number" class="form-control my-n1" /></td>
+					<td><input name="ticari_kira[]" value="<?= $form["kiralik_ticari"]?>" form="endeks_form" type="number" class="form-control my-n1" /></td>
+					<td><input name="arsa_satis[]" value="<?= $form["satilik_arsa"]?>" form="endeks_form" type="number" class="form-control my-n1" /></td>
+					<td><input name="arazi_satis[]" value="<?= $form["satilik_arazi"]?>" form="endeks_form" type="number" class="form-control my-n1" /></td>
 				</tr>
+
+				<?php endforeach ?>
+				<?php } ?>
 			</tbody>
 		</table>
+
+		<?php if(isset($data['form'])){ ?>
+		<div class="row mb-15px">
+			<div class="col-md-3">
+				<input type="submit" value="kaydet veya güncelle" class="form-control mb-5px"  />
+			</div>
+		</div>
+		<?php } ?>
+		
 	</div>
+	</form>
 	<!-- END panel-body -->
+
 </div>
 <!-- END panel -->
 </div>
@@ -193,6 +199,8 @@
 	<!-- ================== BEGIN page-js ================== -->
 	<script src="<?=ASSETS?>js/demo/manage.js"></script>
 	<!-- ================== END page-js ================== -->
+
+
 
 
 </body>

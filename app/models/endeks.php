@@ -2,27 +2,67 @@
 
 class Endeks extends Database {
     function getForm(){
-        $this->il = 1;
-        $this->ilce = 1;
-        $this->mahalle = 1;
-        // $this->il = $_POST["il_id"];
-        // $this->ilce = $_POST["illce_id"];
-        // $this->mahalle = $_POST["mahalle_id"];
+        $this->il = isset($_POST['il_id']) ? $_POST['il_id'] : 0;
+        $this->ilce = isset($_POST['ilce_id']) ? $_POST['ilce_id'] : 0;
+        $this->mahalle = isset($_POST['mahalle_id']) ? $_POST['mahalle_id'] : 0;
 
         if($this->il != 0){
             if($this->ilce != 0){
                 if($this->mahalle != 0){
-                    $this->query = "SELECT mahalleler.id AS mahalleler_id, mahalleler.mahalle_adi FROM mahalleler WHERE mahalleler.id = $this->mahalle";
+
+                    // tekil mahalle döner
+                    $this->query = "SELECT
+                    mahalleler.id as id, mahalleler.mahalle_adi AS adi, 
+                    iller.il_adi, 
+                    ilceler.ilce_adi,
+                    mahalleler.mahalle_adi, 
+                    endeks.* FROM endeks 
+                    RIGHT JOIN mahalleler ON mahalleler.id = endeks.mahalle_id
+                    LEFT JOIN ilceler ON ilceler.id = mahalleler.ilce_id
+                    LEFT JOIN iller ON iller.id = ilceler.il_id
+                    WHERE mahalleler.id = $this->mahalle";
+                    // $this->query = "SELECT mahalleler.id AS id, mahalleler.mahalle_adi AS adi FROM mahalleler, endeks WHERE mahalleler.id = $this->mahalle";
+                    // $this->query = "SELECT * FROM mahalleler LEFT JOIN endeks ON mahalleler.id = endeks.mahalle_id";
 
                 } else {
+
+                    // mahalleleri döner
                     
-                    $this->query = "SELECT mahalleler.id AS mahalle_id, mahalleler.mahalle_adi FROM mahalleler WHERE mahalleler.ilce_id = $this->ilce";
+                    $this->query = "SELECT
+                    mahalleler.id as id, mahalleler.mahalle_adi AS adi, 
+                    iller.il_adi, 
+                    ilceler.ilce_adi,
+                    mahalleler.mahalle_adi, 
+                    endeks.* FROM endeks 
+                    RIGHT JOIN mahalleler ON mahalleler.id = endeks.mahalle_id
+                    LEFT JOIN ilceler ON ilceler.id = mahalleler.ilce_id
+                    LEFT JOIN iller ON iller.id = ilceler.il_id
+                    WHERE ilceler.id = $this->ilce";
+                    // $this->query = "SELECT mahalleler.id AS mahalle_id, mahalleler.mahalle_adi FROM mahalleler WHERE mahalleler.ilce_id = $this->ilce";
                 }
             } else {
-                $this->query = "SELECT ilceler.id as ilce_id, ilceler.ilce_adi FROM ilceler WHERE ilceler.il_id = $this->il";
+
+                // ilçeleri döner
+                $this->query = "SELECT
+                iller.id as id, iller.il_adi AS adi, iller.il_adi, 
+                ilceler.ilce_adi,
+                mahalleler.mahalle_adi, 
+                endeks.* FROM endeks 
+                RIGHT JOIN ilceler ON ilceler.il_id = endeks.ilce_id
+                LEFT JOIN iller ON iller.id = ilceler.il_id
+                LEFT JOIN mahalleler ON mahalleler.id = endeks.mahalle_id
+                WHERE ilceler.il_id = $this->il";
             }
         } else {
-            $this->query = "SELECT iller.id as il_id, iller.il_adi FROM iller";
+            // $this->query = "SELECT iller.id as id, iller.il_adi AS adi, endeks.* FROM iller LEFT JOIN endeks ON iller.id = endeks.il_id AND endeks.ilce_id = 0 AND endeks.mahalle_id = 0 ";
+            $this->query = "SELECT 
+            iller.id as id, iller.il_adi AS adi, iller.il_adi, 
+            ilceler.ilce_adi, 
+            mahalleler.mahalle_adi, 
+            endeks.* FROM endeks 
+            RIGHT JOIN iller ON iller.id = endeks.il_id 
+            LEFT JOIN ilceler ON ilceler.id = endeks.ilce_id 
+            LEFT JOIN mahalleler ON mahalleler.id = endeks.mahalle_id ";
         }
 
         return $this->read($this->query);
