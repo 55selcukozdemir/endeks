@@ -1,5 +1,14 @@
 <?php include "general/head.php" ?>
 
+<?php 
+// değişkenler
+$iller = $data["iller"];
+
+if(isset($data["form"])){
+	$form = $data["form"]["result"];
+	$state = $data["form"]["state"];
+}
+?>
 
 </head>
 <body>
@@ -17,72 +26,145 @@
     <?php include "general/sidebar.php" ?>
 
 
-        <!-- BEGIN #content -->
-        <div id="content" class="app-content">
+		<!-- BEGIN #content -->
+		<div id="content" class="app-content">
+			<!-- BEGIN page-header -->
+			<h1 class="page-header">Harita Yönetimi </h1>
+			<!-- END page-header -->
+			
+			<!-- BEGIN panel -->
+			<!-- harita verilerinin girileceği form paneli -->
+			<div class="panel panel-inverse">
+				<div class="panel-heading">
+					<h4 class="panel-title">Tablo Endeks Getir</h4>
+					<div class="panel-heading-btn">
+						<a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"><i class="fa fa-expand"></i></a>
+						<a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"><i class="fa fa-redo"></i></a>
+						<a href="javascript:;" class="btn btn-xs btn-icon btn-warning" data-toggle="panel-collapse"><i class="fa fa-minus"></i></a>
+						<a href="javascript:;" class="btn btn-xs btn-icon btn-danger" data-toggle="panel-remove"><i class="fa fa-times"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<form action="/endeks/public/" method="POST">
+						<div class="row">
+							<div class="col-md-3">
+								<div class="row mb-15px">
+									<label class="form-label col-form-label col-md-3">İl seç</label>
+									<div class="col-md-9">
+										<select class="form-select" id="il" name="il_id" onchange="getilce()">
+											<option value="0">Tümü</option>
+										<?php foreach($iller as $il): ?>
+											<option value="<?=$il["id"]?>"><?=$il["il_adi"]?></option>
+										<?php endforeach ?>
+										</select>
+									</div>
+								</div>
+								<div id="ilce_div" class="row mb-15px" style="display: none;">
+									<label class="form-label col-form-label col-md-3">İlçe seç</label>
+									<div class="col-md-9">
+										<select id="ilce" class="form-select" name="ilce_id" onchange="getMahalle()" >
+											<option value="-1">Tümü</option>
+										</select>
+									</div>
+								</div>
+								<div id="mahalle_div" class="row mb-15px" style="display: none;">
+									<label class="form-label col-form-label col-md-3">Mahalle seç</label>
+									<div class="col-md-9">
+										<select id="mahalle" name="mahalle_id" class="form-select">
+											<option value="-1">Tümü</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-9">
+								<div class="row mb-15px">
+									<div class="col-md-3">
+										<input type="submit" value="getir" class="form-control mb-5px btn btn-outline-primary"  />
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
 
-                <!-- BEGIN panel -->
-                <div class="panel panel-inverse">
-                    <!-- BEGIN panel-heading -->
-                    <div class="panel-heading">
-                        <h4 class="panel-title">Data Table - Default</h4>
-                        <div class="panel-heading-btn">
-                            <a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"><i class="fa fa-expand"></i></a>
-                            <a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"><i class="fa fa-redo"></i></a>
-                            <a href="javascript:;" class="btn btn-xs btn-icon btn-warning" data-toggle="panel-collapse"><i class="fa fa-minus"></i></a>
-                            <a href="javascript:;" class="btn btn-xs btn-icon btn-danger" data-toggle="panel-remove"><i class="fa fa-times"></i></a>
-                        </div>
-                    </div>
-                    <!-- END panel-heading -->
+				</div>
+			</div>
+			<!-- END panel -->
 
-                    
-                    <!-- BEGIN panel-body -->
-                    <div class="panel-body">
-                        <table id="data-table-default" class="table table-striped table-bordered align-middle">
-                            <thead>
-                                <tr>
-                                    <th class="text-nowrap">İl</th>
-                                    <th class="text-nowrap">İlçe</th>
-                                    <th class="text-nowrap">Mahalle</th>
-                                    <th class="text-nowrap">Konut Satışı Min</th>
-                                    <th class="text-nowrap">Konut Satışı Max</th>
-                                    <th class="text-nowrap">Konut Kira Min</th>
-                                    <th class="text-nowrap">Konut Kira Max</th>
-                                    <th class="text-nowrap">Ticari Satışı Min</th>
-                                    <th class="text-nowrap">Ticari Satışı Max</th>
-                                    <th class="text-nowrap">Ticari Kira Min</th>
-                                    <th class="text-nowrap">Ticari Kira Max</th>
-                                    <th class="text-nowrap">Arsa Satışı Min</th>
-                                    <th class="text-nowrap">Arsa Satışı Max</th>
-                                    <th class="text-nowrap">Arazi Satış Min</th>
-                                    <th class="text-nowrap">Arazi Satış Max</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="odd gradeX">
-                                    <td>Samsun</td>
-                                    <td>Çarşamba</td>
-                                    <td>Köroğlu</td>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                    <td>4</td>
-                                    <td>5</td>
-                                    <td>6</td>
-                                    <td>7</td>
-                                    <td>8</td>
-                                    <td>9</td>
-                                    <td>10</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- END panel-body -->
-                </div>
-                <!-- END panel -->
-            </div>
-            <!-- END #content -->
+			<!-- BEGIN panel -->
+			<div class="panel panel-inverse" data-sortable-id="table-basic-4">
+				<!-- BEGIN panel-heading -->
+				<div class="panel-heading">
+					<h4 class="panel-title">
+
+					<?php 
+					if(isset($data["form"])){
+						if($state == "mahalle"){
+							echo $form[0]["il_adi"] . " / " . $form[0]["ilce_adi"] . " / "  .$form[0]["mahalle_adi"];
+						} else if ($state == "tum_mahalle") {
+							echo $form[0]["il_adi"] . " / " . $form[0]["ilce_adi"] . " / " . $form[0]["mahalle_adi"] ;
+						} else if($state == "ilce") {
+							echo $form[0]["il_adi"] . " / " .  $form[0]["ilce_adi"];
+						} else if ($state == "il"){
+							echo "Tüm İller";
+						}
+
+					}?>
+					</h4>
+					<div class="panel-heading-btn">
+						<a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"><i class="fa fa-expand"></i></a>
+						<a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"><i class="fa fa-redo"></i></a>
+						<a href="javascript:;" class="btn btn-xs btn-icon btn-warning" data-toggle="panel-collapse"><i class="fa fa-minus"></i></a>
+						<a href="javascript:;" class="btn btn-xs btn-icon btn-danger" data-toggle="panel-remove"><i class="fa fa-times"></i></a>
+					</div>
+				</div>
+				<!-- END panel-heading -->
+				<!-- BEGIN panel-body -->
+				<div class="panel-body">
+					<!-- BEGIN table-responsive -->
+					<div class="table-responsive">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th class="text-nowrap">Konut Satışı</th>
+									<th class="text-nowrap">Konut Kira</th>
+									<th class="text-nowrap">Ticari Satışı</th>
+									<th class="text-nowrap">Ticari Kira</th>
+									<th class="text-nowrap">Arsa Satışı</th>
+									<th class="text-nowrap">Arazi Satış</th>
+								</tr>
+							</thead>
+							<tbody>
+
+							<?php 
+							if(isset($form)){
+								foreach( $form as $form): ?>
+									<tr>
+										<td>1</td>
+										<td><?= $form["satilik_konut"] ?></td>
+										<td><?= $form["kiralik_konut"]?></td>
+										<td><?= $form["satilik_ticari"]?></td>
+										<td><?= $form["kiralik_ticari"]?></td>
+										<td><?= $form["satilik_arsa"]?></td>
+										<td><?= $form["satilik_arazi"]?></td>
+									</tr>
+
+							<?php endforeach ?>
+							<?php } ?>
+
+							</tbody>
+						</table>
+					</div>
+					<!-- END table-responsive -->
+				</div>
+				<!-- END panel-body -->
+			</div>
+			<!-- END panel -->
+		</div>
+		<!-- END #content -->
+
+			
+
 
         <!-- BEGIN scroll to top btn -->
         <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top" data-toggle="scroll-to-top"><i class="fa fa-angle-up"></i></a>
@@ -93,6 +175,12 @@
 
 
     <?php include "general/footer.php" ?>
+
+
+    
+	<!-- ================== BEGIN page-js ================== -->
+	<script src="<?=ASSETS?>js/demo/manage.js"></script>
+	<!-- ================== END page-js ================== -->
 
 	<!-- ================== BEGIN page-js ================== -->
 	<script src="<?=ASSETS?>plugins/datatables.net/js/jquery.dataTables.min.js"></script>

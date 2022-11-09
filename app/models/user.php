@@ -3,6 +3,7 @@
 Class User 
 {
 
+	// basitçe login işlemi yapıyoruz.
 	function login($POST)
 	{
 		$DB = new Database();
@@ -38,6 +39,8 @@ Class User
 
 	}
 
+
+	// pasif durumda şu anlık
 	function signup($POST)
 	{
 
@@ -68,6 +71,8 @@ Class User
 		}
 	}
 
+
+	// pasif durumda şu anlık
 	function check_logged_in()
 	{
 
@@ -93,6 +98,8 @@ Class User
 
 	}
 
+
+	// çıkış yapıyor
 	function logout()
 	{
 		//logged in

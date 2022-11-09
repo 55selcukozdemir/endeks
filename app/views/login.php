@@ -19,8 +19,6 @@
 		<span class="spinner"></span>
 	</div>
 	<!-- END #loader -->
-
-
 	<!-- BEGIN #app -->
 	<div id="app" class="app">
 		<!-- BEGIN login -->

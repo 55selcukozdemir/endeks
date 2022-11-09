@@ -18,7 +18,9 @@ function getilce (){
       url: "manage/getDistrict",
       data: { ilID : ilID.value},
       dataType: "html"
-    }).done(function(res){      
+    }).done(function(res){
+      console.log("ilce veriler")     ; 
+      console.log(res)     ; 
       const obj = JSON.parse(res);
       var arrayLen = obj.length;
       for (var i = 0; i < arrayLen; i++){

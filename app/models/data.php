@@ -1,6 +1,6 @@
 <?php
 
-use function PHPSTORM_META\type;
+// Kullanım dışıdır.
 
 class data extends Database{
 
@@ -74,19 +74,6 @@ class data extends Database{
         $count=25;
 
         for ($i; $i < $i + $count; $i++){
-
-
-            // $form_degerleri = array(
-
-            //     'url' => $url = "https://cbsservis.tkgm.gov.tr/megsiswebapi.v3/api/idariYapi/mahalleListe/" . $listIlce[$i]["district_id"]
-            // );
-            // $postVeri = http_build_query($form_degerleri); 
-            // $ayarlar = array('http' => array('method' => 'POST', 'header' => 'Content-Type: application/x-www-form-urlencoded', 'content' => $postVeri));
-            // $formAyar = stream_context_create($ayarlar);
-            // $url = 'https://www.croxyproxy.com/servers';
-            // $sonuc = file_get_contents($url, false, $formAyar);
-
-            // echo $sonuc;
 
 
             $url = "https://cbsservis.tkgm.gov.tr/megsiswebapi.v3/api/idariYapi/mahalleListe/" . $listIlce[$i]["district_id"];            

@@ -2,70 +2,78 @@
 
 class Endeks extends Database {
     function getForm(){
-        $this->il = isset($_POST['il_id']) ? $_POST['il_id'] : 0;
-        $this->ilce = isset($_POST['ilce_id']) ? $_POST['ilce_id'] : 0;
-        $this->mahalle = isset($_POST['mahalle_id']) ? $_POST['mahalle_id'] : 0;
+        $this->il           = isset($_POST['il_id'])        ? $_POST['il_id']       : 0;
+        $this->ilce         = isset($_POST['ilce_id'])      ? $_POST['ilce_id']     : 0;
+        $this->mahalle      = isset($_POST['mahalle_id'])   ? $_POST['mahalle_id']  : 0;
 
         if($this->il != 0){
             if($this->ilce != 0){
                 if($this->mahalle != 0){
 
+                    $arr["state"] = "mahalle";
+
                     // tekil mahalle döner
                     $this->query = "SELECT
-                    mahalleler.id as id, mahalleler.mahalle_adi AS adi, 
-                    iller.il_adi, 
-                    ilceler.ilce_adi,
+                    iller.il_adi,               iller.id AS il_id,
+                    ilceler.ilce_adi,           ilceler.id AS ilce_id,
+                    mahalleler.id as id,        mahalleler.mahalle_adi AS adi,      mahalleler.id as mahalle_id,
                     mahalleler.mahalle_adi, 
-                    endeks.* FROM endeks 
-                    RIGHT JOIN mahalleler ON mahalleler.id = endeks.mahalle_id
-                    LEFT JOIN ilceler ON ilceler.id = mahalleler.ilce_id
-                    LEFT JOIN iller ON iller.id = ilceler.il_id
+                    endeks.il_id AS e_il_id,    endeks.ilce_id AS e_ilce_id,        endeks.ilce_id AS e_mahalle_id,
+                    endeks.kiralik_konut,       endeks.satilik_konut,               endeks.kiralik_ticari,          endeks.satilik_ticari,      endeks.satilik_arazi,       endeks.satilik_arsa                    
+                    FROM endeks 
+                    RIGHT   JOIN mahalleler     ON mahalleler.id    = endeks.mahalle_id
+                    LEFT    JOIN ilceler        ON ilceler.id       = mahalleler.ilce_id
+                    LEFT    JOIN iller          ON iller.id         = ilceler.il_id
                     WHERE mahalleler.id = $this->mahalle";
-                    // $this->query = "SELECT mahalleler.id AS id, mahalleler.mahalle_adi AS adi FROM mahalleler, endeks WHERE mahalleler.id = $this->mahalle";
-                    // $this->query = "SELECT * FROM mahalleler LEFT JOIN endeks ON mahalleler.id = endeks.mahalle_id";
 
                 } else {
 
                     // mahalleleri döner
                     
+                    $arr["state"] = "tum_mahalle";
+                    
                     $this->query = "SELECT
-                    mahalleler.id as id, mahalleler.mahalle_adi AS adi, 
-                    iller.il_adi, 
-                    ilceler.ilce_adi,
+                    mahalleler.id as id,        mahalleler.mahalle_adi AS adi,          mahalleler.id as mahalle_id,
+                    iller.il_adi,               iller.id AS il_id,
+                    ilceler.ilce_adi,           ilceler.id AS ilce_id,
                     mahalleler.mahalle_adi, 
-                    endeks.* FROM endeks 
-                    RIGHT JOIN mahalleler ON mahalleler.id = endeks.mahalle_id
-                    LEFT JOIN ilceler ON ilceler.id = mahalleler.ilce_id
-                    LEFT JOIN iller ON iller.id = ilceler.il_id
-                    WHERE ilceler.id = $this->ilce";
-                    // $this->query = "SELECT mahalleler.id AS mahalle_id, mahalleler.mahalle_adi FROM mahalleler WHERE mahalleler.ilce_id = $this->ilce";
+                    endeks.il_id AS e_il_id,    endeks.ilce_id AS e_ilce_id,            endeks.ilce_id AS e_mahalle_id,
+                    endeks.kiralik_konut,       endeks.satilik_konut,                   endeks.kiralik_ticari,          endeks.satilik_ticari,      endeks.satilik_arazi,       endeks.satilik_arsa                    
+                    FROM endeks 
+                    RIGHT   JOIN mahalleler     ON mahalleler.id    = endeks.mahalle_id
+                    LEFT    JOIN ilceler        ON ilceler.id       = mahalleler.ilce_id
+                    LEFT    JOIN iller          ON iller.id         = ilceler.il_id
+                    WHERE ilceler.id =$this->ilce";
                 }
             } else {
 
+                
+                $arr["state"] = "ilce";
                 // ilçeleri döner
                 $this->query = "SELECT
-                iller.id as id, iller.il_adi AS adi, iller.il_adi, 
+                iller.il_adi,               iller.id AS il_id, 
+                ilceler.id as id,           ilceler.ilce_adi AS adi,        ilceler.id as ilce_id,
                 ilceler.ilce_adi,
-                mahalleler.mahalle_adi, 
-                endeks.* FROM endeks 
-                RIGHT JOIN ilceler ON ilceler.il_id = endeks.ilce_id
-                LEFT JOIN iller ON iller.id = ilceler.il_id
-                LEFT JOIN mahalleler ON mahalleler.id = endeks.mahalle_id
+                endeks.il_id AS e_il_id,    endeks.ilce_id AS e_ilce_id,    endeks.ilce_id AS e_mahalle_id,
+                endeks.kiralik_konut, endeks.satilik_konut, endeks.kiralik_ticari, endeks.satilik_ticari, endeks.satilik_arazi, endeks.satilik_arsa
+                FROM endeks 
+                RIGHT   JOIN ilceler    ON ilceler.id   = endeks.ilce_id
+                LEFT    JOIN iller      ON iller.id     = ilceler.il_id
                 WHERE ilceler.il_id = $this->il";
             }
         } else {
-            // $this->query = "SELECT iller.id as id, iller.il_adi AS adi, endeks.* FROM iller LEFT JOIN endeks ON iller.id = endeks.il_id AND endeks.ilce_id = 0 AND endeks.mahalle_id = 0 ";
+            
+            $arr["state"] = "il";
             $this->query = "SELECT 
-            iller.id as id, iller.il_adi AS adi, iller.il_adi, 
-            ilceler.ilce_adi, 
-            mahalleler.mahalle_adi, 
-            endeks.* FROM endeks 
-            RIGHT JOIN iller ON iller.id = endeks.il_id 
-            LEFT JOIN ilceler ON ilceler.id = endeks.ilce_id 
-            LEFT JOIN mahalleler ON mahalleler.id = endeks.mahalle_id ";
+            iller.id as id,              iller.il_adi AS adi,            iller.il_adi, iller.id AS il_id, 
+            endeks.il_id AS e_il_id,     endeks.ilce_id AS e_ilce_id,    endeks.ilce_id AS e_mahalle_id,
+            endeks.kiralik_konut, endeks.satilik_konut, endeks.kiralik_ticari, endeks.satilik_ticari, endeks.satilik_arazi, endeks.satilik_arsa FROM endeks 
+            RIGHT JOIN iller ON iller.id = endeks.il_id AND endeks.ilce_id = 0 AND endeks.mahalle_id = 0";
         }
 
-        return $this->read($this->query);
+        $arr["result"] = $this->read($this->query);
+        
+        return $arr ;
     }
     
     
@@ -110,77 +118,97 @@ class Endeks extends Database {
 
     function insertEndeks(){
 
-        if($this->getMahalleEndeks()){
-            $query = "UPDATE endeks SET 
-                kiralik_konut = :kiralik_konut, 
-                satilik_konut = :satilik_konut, 
-                kiralik_ticari = :kiralik_ticari, 
-                satilik_ticari = :satilik_ticari, 
-                satilik_arazi = :satilik_arazi, 
-                satilik_arsa = :satilik_arsa WHERE il_id = $this->il AND ilce_id = $this->ilce AND mahalle_id = $this->mahalle";
+        $kiralik_konut      = $_POST["konut_kira"];
+        $satilik_konut      = $_POST["konut_satis"];
+        $kiralik_ticari     = $_POST["ticari_kira"];
+        $satilik_ticari     = $_POST["ticari_satis"];
+        $satilik_arazi      = $_POST["arazi_satis"];
+        $satilik_arsa       = $_POST["arsa_satis"];
+        $il                 = $_POST["il_id"];  
+        $ilce               = $_POST["ilce_id"];
+        $mahalle            = $_POST["mahalle_id"];
 
-            $arr["kiralik_konut"] = $_POST["kiralik_konut"];
-            $arr["satilik_konut"] = $_POST["satilik_konut"];
-            $arr["kiralik_ticari"] = $_POST["kiralik_ticari"];
-            $arr["satilik_ticari"] = $_POST["satilik_ticari"];
-            $arr["satilik_arazi"] = $_POST["satilik_arazi"];
-            $arr["satilik_arsa"] = $_POST["satilik_arsa"];
-            $this->write($query, $arr);
-           
-        } else {
-            // girilmemişse insert yap 
-           
-            $query = "INSERT INTO endeks (
-                il_id, 
-                ilce_id, 
-                mahalle_id, 
-                yil,
-                kiralik_konut, 
-                satilik_konut, 
-                kiralik_ticari, 
-                satilik_ticari, 
-                satilik_arazi, 
-                satilik_arsa
-                ) VALUES (
-                :il_id, 
-                :ilce_id, 
-                :mahalle_id, 
-                :yil, 
-                :kiralik_konut, 
-                :satilik_konut, 
-                :kiralik_ticari, 
-                :satilik_ticari, 
-                :satilik_arazi, 
-                :satilik_arsa
-                )";
-            $arr["il_id"] = $_POST["il_id"];
-            $arr["ilce_id"] = $_POST["ilce_id"];
-            $arr["mahalle_id"] = $_POST["mahalle_id"];
-            $arr["yil"] = date("Y");
-            $arr["kiralik_konut"] = $_POST["kiralik_konut"];
-            $arr["satilik_konut"] = $_POST["satilik_konut"];
-            $arr["kiralik_ticari"] = $_POST["kiralik_ticari"];
-            $arr["satilik_ticari"] = $_POST["satilik_ticari"];
-            $arr["satilik_arazi"] = $_POST["satilik_arazi"];
-            $arr["satilik_arsa"] = $_POST["satilik_arsa"];
-    
-    
-            $this->write($query, $arr);
-        }  
-    }
+        for ($i = 0; $i < count($satilik_konut) ; $i++ ){
 
 
-    function getMahalleEndeks(){
-        $this->il = $_POST["il_id"];
-        $this->ilce = $_POST["illce_id"];
-        $this->mahalle = $_POST["mahalle_id"];
-        $query = "SELECT * FROM endeks WHERE il_id = $this->il AND ilce_id = $this->ilce AND mahalle_id = $this->mahalle";
-        return $this->read($query);
-    }
+            // Değerlerden en az bir doluysa veriyi database yaz, boş değerleri de 0 (sıfır) al. 
+            $deger_control = 
+            $_POST["konut_kira"][$i]    != "" &&
+            $_POST["konut_satis"][$i]   != "" &&
+            $_POST["ticari_kira"][$i]   != "" &&
+            $_POST["ticari_satis"][$i]  != "" &&
+            $_POST["arazi_satis"][$i]   != "" &&
+            $_POST["arsa_satis"][$i]    != "";
 
-    function getEndeks () {
-        if($this->getMahalleEndeks()){
-            
+            // print($deger_control);
+            print(!empty($_POST["arsa_satis"][$i]) );
+            if($deger_control){
+
+                $query = "SELECT * FROM endeks WHERE il_id = $il[$i] AND ilce_id = $ilce[$i] AND mahalle_id = $mahalle[$i]";
+                $control = $this->read($query);
+
+                if($control){
+
+                    echo "if e girdi";
+                    $query = "UPDATE endeks SET 
+                        kiralik_konut   = :kiralik_konut, 
+                        satilik_konut   = :satilik_konut, 
+                        kiralik_ticari  = :kiralik_ticari, 
+                        satilik_ticari  = :satilik_ticari, 
+                        satilik_arazi   = :satilik_arazi, 
+                        satilik_arsa    = :satilik_arsa 
+                        WHERE il_id = $il[$i] AND ilce_id = $ilce[$i] AND mahalle_id = $mahalle[$i]";
+        
+                    $arr["kiralik_konut"]   = isset($kiralik_konut[$i])     ? $kiralik_konut[$i]    : 0;
+                    $arr["satilik_konut"]   = isset($satilik_konut[$i])     ? $satilik_konut[$i]    : 0;
+                    $arr["kiralik_ticari"]  = isset($kiralik_ticari[$i])    ? $kiralik_ticari[$i]   : 0;
+                    $arr["satilik_ticari"]  = isset($satilik_ticari[$i])    ? $satilik_ticari[$i]   : 0;
+                    $arr["satilik_arazi"]   = isset($satilik_arazi[$i])     ? $satilik_arazi[$i]    : 0;
+                    $arr["satilik_arsa"]    = isset($satilik_arsa[$i])      ? $satilik_arsa[$i]     : 0;
+                    $this->write($query, $arr);
+                
+                } else {
+                    // girilmemişse insert yap 
+                echo "else girdi";
+                    $query = "INSERT INTO endeks (
+                        il_id, 
+                        ilce_id, 
+                        mahalle_id, 
+                        yil,
+                        kiralik_konut, 
+                        satilik_konut, 
+                        kiralik_ticari, 
+                        satilik_ticari, 
+                        satilik_arazi, 
+                        satilik_arsa
+                        ) VALUES (
+                        :il_id, 
+                        :ilce_id, 
+                        :mahalle_id, 
+                        :yil, 
+                        :kiralik_konut, 
+                        :satilik_konut, 
+                        :kiralik_ticari, 
+                        :satilik_ticari, 
+                        :satilik_arazi, 
+                        :satilik_arsa
+                        )";
+                    $arr["il_id"]               = isset($il[$i])                ? $il[$i]                       : 0;
+                    $arr["ilce_id"]             = isset($ilce[$i])              ? $ilce[$i]                     : 0;
+                    $arr["mahalle_id"]          = isset($mahalle[$i])           ? $mahalle[$i]                  : 0;
+                    $arr["yil"]                 = date("Y");
+                    $arr["kiralik_konut"]       = isset($kiralik_konut[$i])     ? $kiralik_konut[$i]            : 0;
+                    $arr["satilik_konut"]       = isset($satilik_konut[$i])     ? $satilik_konut[$i]            : 0;
+                    $arr["kiralik_ticari"]      = isset($kiralik_ticari[$i])    ? $kiralik_ticari[$i]           : 0;
+                    $arr["satilik_ticari"]      = isset($satilik_ticari[$i])    ? $satilik_ticari[$i]           : 0;
+                    $arr["satilik_arazi"]       = isset($satilik_arazi[$i])     ? $satilik_arazi[$i]            : 0;
+                    $arr["satilik_arsa"]        = isset($satilik_arsa[$i])      ? $satilik_arsa[$i]             : 0;
+                
+                
+                    $this->write($query, $arr);
+                        
+                } 
+            } 
         }
     }
 }

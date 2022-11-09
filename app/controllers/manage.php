@@ -2,6 +2,8 @@
 
 class Manage extends Controller {
 
+
+	// modelleri yüklüyoruz.
 	function __construct(){
 		$this->endeks = $this->loadModel('endeks');
 	}
@@ -9,47 +11,21 @@ class Manage extends Controller {
     function index()
 	{
 		$data ['iller'] =  $this->endeks->getIl();
-		
+		// il-ilce-mahalle post edildiğinde kontrol ediyoruz ve $data'ya ekliyoruz.
 		if(isset($_POST['il_id'])){
-			
 			$data['form'] = $this->endeks->getForm();
 		}
+
+
 		$this->view("manage", $data);
 	}
 
-	function getForm(){
-		print_r( $this->endeks->getForm());
-	}
 
-
-
-	function getProvince(){
-		echo ($this->endeks->getIl());
-		header("Content-Type: application/json");
-		echo json_encode($this->endeks->getIl());
-		exit();
-	}
-
-	function getDistrict(){
-		header("Content-Type: application/json");
-		echo json_encode($this->endeks->getIlce(isset($_POST['ilID']) ? $_POST['ilID'] : 1));
-		exit();
-
-
-	}
-
-	function getNeighbourhood(){
-		header("Content-Type: application/json");
-		echo json_encode($this->endeks->getMahalle(isset($_POST['ilceID']) ? $_POST['ilceID'] : 1));
-		exit();
-	}
-
+	// tablo'da kaydet veya güncelle işlemini yapıyor.
 	function setendeks (){
-		print_r($_POST);
-
 		
-		// $this->endeks->insertEndeks($_POST); 
-		echo "eklendi";
+		$this->endeks->insertEndeks($_POST); 
+		header("location: /endeks/public/manage");
 	}
 }
 ?>
