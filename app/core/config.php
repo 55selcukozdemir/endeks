@@ -11,6 +11,11 @@ define('DB_NAME','endeks_2');
 define('DB_USER','root');
 define('DB_PASS','');
 define('DB_HOST','localhost');
+// define('DB_TYPE','mysql');
+// define('DB_NAME','selcukoz_v');
+// define('DB_USER','root');
+// define('DB_PASS','');
+// define('DB_HOST','localhost');
 
 /*protocal type http or https*/
 define('PROTOCAL','http');
@@ -26,7 +31,7 @@ define('ASSETS', str_replace("app/core", "public/assets", $path));
 /*set to true to allow error reporting
 set to false when you upload online to stop error reporting*/
 
-define('DEBUG',true);
+define('DEBUG',false);
 
 if(DEBUG)
 {

@@ -8,7 +8,7 @@ Class Home extends Controller
 	{
 		
 		$this->endeks = $this->loadModel('endeks');
-		$this->home = $this->loadModel('HomeModel');
+		$this->home = $this->loadModel('homemodel');
 	}
 
 	function index()

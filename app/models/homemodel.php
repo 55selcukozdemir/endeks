@@ -20,7 +20,7 @@ class HomeModel extends Database{
         $query_ilce      =  "SELECT * FROM endeks WHERE il_id = $il AND ilce_id = $ilce AND mahalle_id = 0";
         $control_ilce    =  $this->read($query_ilce);
 
-        $query_il        =  "SELECT * FROM endeks WHERE il_id = $il AND ilce_id = 0 AND mahalle_id = 0";
+        $query_il        =  "SELECT * FROM endeks WHERE il_id = $il AND ilce_id = 0     AND mahalle_id = 0";
         $control_il      =  $this->read($query_il);
 
         if($control_mahalle){
@@ -39,6 +39,7 @@ class HomeModel extends Database{
                 LEFT JOIN ilceler       ON ilceler.id = mahalleler.ilce_id
                 LEFT JOIN iller         ON iller.id = ilceler.il_id
                 WHERE mahalleler.id = $mahalle";
+                
         } else if($control_ilce) {
 
             $arr["state"] = "ilce";
@@ -64,9 +65,32 @@ class HomeModel extends Database{
                 FROM endeks 
                 RIGHT JOIN iller ON iller.id = endeks.il_id AND endeks.ilce_id = 0 AND endeks.mahalle_id = 0 
                 WHERE iller.id = $il"; 
+        } else {
+            $arr["state"] = "bos";
         }
 
-        $arr["result"] = $this->read($query);
+
+        // eğer boşsa endeks verilerini boş döner.
+
+        if ($arr["state"] != "bos"){
+            $arr["result"] = $this->read($query);
+        }else {
+            $arr["result"][0] = [
+                "id" => 0,
+                "adi" => 0,
+                "il_adi" => 0,
+                "il_id" => 0,
+                "e_il_id" => 0,
+                "e_ilce_id" => 0,
+                "e_mahalle_id" => 0,
+                "kiralik_konut" => 0,
+                "satilik_konut" => 0,
+                "kiralik_ticari" => 0,
+                "satilik_ticari" => 0,
+                "satilik_arazi" => 0,
+                "satilik_arsa" => 0,
+            ];
+        }
         return $arr ;
     }
 } 

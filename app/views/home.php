@@ -4,7 +4,7 @@
 // değişkenler
 $iller = $data["iller"];
 
-if(isset($data["form"])){
+if(isset($data["form"]["result"])){
 	$form = $data["form"]["result"];
 	$state = $data["form"]["state"];
 }
@@ -97,6 +97,8 @@ if(isset($data["form"])){
 					<h4 class="panel-title">
 
 					<?php 
+
+					// Gelen veri il-ilçe-mahalleye mi ait kontrol ediliyor.
 					if(isset($data["form"])){
 						if($state == "mahalle"){
 							echo $form[0]["il_adi"] . " / " . $form[0]["ilce_adi"] . " / "  .$form[0]["mahalle_adi"];
@@ -106,6 +108,8 @@ if(isset($data["form"])){
 							echo $form[0]["il_adi"] . " / " .  $form[0]["ilce_adi"];
 						} else if ($state == "il"){
 							echo "Tüm İller";
+						}  elseif ($state == "bos"){
+							echo "Sonuç bulunamadı";
 						}
 
 					}?>

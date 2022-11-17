@@ -38,6 +38,11 @@
 					</div>
 				</div>
 				<!-- END login-header -->
+
+				<?php 
+				
+				echo $_SERVER['SERVER_NAME'];
+				?>
 				
 				<!-- BEGIN login-body -->
 				<div class="login-body">
@@ -77,6 +82,8 @@
 		<!-- END scroll-top-btn -->
 	</div>
 	<!-- END #app -->
+
+	
 	
 	<!-- ================== BEGIN core-js ================== -->
 	<script src="<?=ASSETS?>js/vendor.min.js"></script>
