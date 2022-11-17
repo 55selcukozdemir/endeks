@@ -16,4 +16,4 @@ Yapabildikleriniz:
 4. Veri gösterme olayını harita üzerinden seçmek sureti ile gösterilmesi sağlanılabilir.
 
 
-demo: 
+demo: https://selcukozdemir.space/endeks/public/
