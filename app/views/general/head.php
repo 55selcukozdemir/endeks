@@ -3,6 +3,7 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Emlak Endeksi</title>
+	<link rel="icon" type="image/x-icon" href="<?=ASSETS?>img/i.ico">
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 	<meta content="" name="description" />
 	<meta content="" name="author" />
